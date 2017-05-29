@@ -210,6 +210,45 @@ def check_back(cube, solution):
             rotate_back(cube, 3, solution)
             rotate_right(cube, 2, solution)
 
+    if cube["back"][3] == cube["front"][4]:
+        if cube["right"][5] == cube["right"][4]:
+            rotate_right(cube, 2, solution)
+        elif cube["right"][5] == things[cube["right"][4]][0]:
+            rotate_back(cube, 1, solution)
+            rotate_up(cube, 2, solution)
+        elif cube["right"][5] == things[cube["right"][4]][1]:
+            rotate_back(cube, 2, solution)
+            rotate_left(cube, 2, solution)
+        elif cube["right"][5] == things[cube["right"][4]][2]:
+            rotate_back(cube, 3, solution)
+            rotate_down(cube, 2, solution)
+
+    if cube["back"][5] == cube["front"][4]:
+        if cube["left"][3] == cube["left"][4]:
+            rotate_left(cube, 2, solution)
+        elif cube["left"][3] == things[cube["left"][4]][0]:
+            rotate_back(cube, 1, solution)
+            rotate_down(cube, 2, solution)
+        elif cube["left"][3] == things[cube["left"][4]][1]:
+            rotate_back(cube, 2, solution)
+            rotate_right(cube, 2, solution)
+        elif cube["left"][3] == things[cube["left"][4]][2]:
+            rotate_back(cube, 3, solution)
+            rotate_up(cube, 2, solution)
+
+    if cube["back"][7] == cube["front"][4]:
+        if cube["bottom"][7] == cube["bottom"][4]:
+            rotate_down(cube, 2, solution)
+        elif cube["bottom"][7] == things[cube["bottom"][4]][0]:
+            rotate_back(cube, 1, solution)
+            rotate_right(cube, 2, solution)
+        elif cube["bottom"][7] == things[cube["bottom"][4]][1]:
+            rotate_back(cube, 2, solution)
+            rotate_up(cube, 2, solution)
+        elif cube["bottom"][7] == things[cube["bottom"][4]][2]:
+            rotate_back(cube, 3, solution)
+            rotate_left(cube, 2, solution)
+
 def check_front(cube, solution):
     frontColor = cube["front"][4]
     if cube["front"][1] == frontColor and cube["top"][7] != cube["top"][4]:
