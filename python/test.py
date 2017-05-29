@@ -32,6 +32,21 @@ def get_cube_from_pictures():
         ]
     }
 
+def test_cube_sides(cube, expected):
+    x = 0
+    mapThing = ["top", "left", "front", "right", "back", "bottom"]
+    equal = True
+    for i in range(len(cube)):
+        for j in range(9):
+            if cube[mapThing[i]][j] != expected[mapThing[i]][j]:
+                equal = False
+                print(mapThing[i] + " " + str(j) + " " + cube[mapThing[i]][j] +
+                    " != " + expected[mapThing[i]][j])
+    if equal:
+        print("we did it fam")
+    else:
+        print("we didnt do it fam")
+
 def expected_orientation_after_left_move():
     return {
         "top": [
@@ -237,5 +252,39 @@ def expected_orientation_after_back_move():
             'o', 'w', 'b',
             'o', 'r', 'b',
             'r', 'r', 'b'
+        ]
+    }
+
+def expected_orientation_after_middle_move():
+    return {
+        "top": [
+            'b', 'b', 'r',
+            'b', 'g', 'o',
+            'r', 'y', 'g'
+        ],
+        "left": [
+            'r', 'o', 'g',
+            'r', 'r', 'w',
+            'b', 'b', 'w'
+        ],
+        "front": [
+            'y', 'g', 'o',
+            'g', 'w', 'o',
+            'g', 'o', 'o'
+        ],
+        "right": [
+            'y', 'g', 'w',
+            'y', 'o', 'y',
+            'y', 'w', 'o'
+        ],
+        "back": [
+            'g', 'y', 'w',
+            'r', 'y', 'w',
+            'b', 'g', 'r'
+        ],
+        "bottom": [
+            'o', 'w', 'b',
+            'r', 'b', 'b',
+            'y', 'r', 'w'
         ]
     }
