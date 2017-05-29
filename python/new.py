@@ -27,40 +27,6 @@ def rotate_side_clockwise(side):
     side[7] = temp[5]
     side[8] = temp[2]
 
-def expected_orientation_after_left_move():
-    return {
-        "top": [
-            'r', 'b', 'r',
-            'w', 'o', 'w',
-            'w', 'y', 'g'
-        ],
-        "left": [
-            'b', 'r', 'r',
-            'b', 'g', 'o',
-            'w', 'w', 'g'
-        ],
-        "front": [
-            'b', 'g', 'o',
-            'g', 'w', 'o',
-            'r', 'o', 'o'
-        ],
-        "right": [
-            'y', 'b', 'w',
-            'y', 'b', 'y',
-            'y', 'r', 'o'
-        ],
-        "back": [
-            'g', 'y', 'y',
-            'r', 'y', 'o',
-            'b', 'g', 'o'
-        ],
-        "bottom": [
-            'y', 'w', 'b',
-            'g', 'r', 'b',
-            'g', 'r', 'w'
-        ]
-    }
-
 def rotate_left(cube):
     temp = cube["front"][:]
     rotate_side_clockwise(cube["left"])
@@ -80,40 +46,6 @@ def rotate_left(cube):
     cube["bottom"][0] = temp[0]
     cube["bottom"][3] = temp[3]
     cube["bottom"][6] = temp[6]
-
-def expected_orientation_after_right_move():
-    return {
-        "top": [
-            'b', 'b', 'o',
-            'g', 'o', 'o',
-            'r', 'y', 'o'
-        ],
-        "left": [
-            'r', 'o', 'g',
-            'r', 'g', 'w',
-            'b', 'b', 'w'
-        ],
-        "front": [
-            'y', 'g', 'b',
-            'g', 'w', 'b',
-            'g', 'o', 'w'
-        ],
-        "right": [
-            'y', 'y', 'y',
-            'r', 'b', 'b',
-            'o', 'y', 'w'
-        ],
-        "back": [
-            'g', 'y', 'w',
-            'w', 'y', 'w',
-            'r', 'g', 'r'
-        ],
-        "bottom": [
-            'o', 'w', 'b',
-            'o', 'r', 'r',
-            'y', 'r', 'g'
-        ]
-    }
 
 def rotate_right(cube):
     temp = cube["back"][:]
@@ -135,40 +67,6 @@ def rotate_right(cube):
     cube["bottom"][5] = temp[3]
     cube["bottom"][8] = temp[0]
 
-def expected_orientation_after_up_move():
-    return {
-        "top": [
-            'r', 'g', 'b',
-            'y', 'o', 'b',
-            'g', 'w', 'r'
-        ],
-        "left": [
-            'y', 'g', 'o',
-            'r', 'g', 'w',
-            'b', 'b', 'w'
-        ],
-        "front": [
-            'y', 'b', 'w',
-            'g', 'w', 'o',
-            'g', 'o', 'o'
-        ],
-        "right": [
-            'g', 'y', 'w',
-            'y', 'b', 'y',
-            'y', 'r', 'o'
-        ],
-        "back": [
-            'r', 'o', 'g',
-            'r', 'y', 'w',
-            'b', 'g', 'r'
-        ],
-        "bottom": [
-            'o', 'w', 'b',
-            'o', 'r', 'b',
-            'y', 'r', 'w'
-        ]
-    }
-
 def rotate_up(cube):
     temp = cube["front"][:]
     rotate_side_clockwise(cube["top"])
@@ -188,40 +86,6 @@ def rotate_up(cube):
     cube["left"][0] = temp[0]
     cube["left"][1] = temp[1]
     cube["left"][2] = temp[2]
-
-def expected_orientation_after_down_move():
-    return {
-        "top": [
-            'b', 'b', 'r',
-            'g', 'o', 'w',
-            'r', 'y', 'g'
-        ],
-        "left": [
-            'r', 'o', 'g',
-            'r', 'g', 'w',
-            'b', 'g', 'r'
-        ],
-        "front": [
-            'y', 'g', 'o',
-            'g', 'w', 'o',
-            'b', 'b', 'w'
-        ],
-        "right": [
-            'y', 'b', 'w',
-            'y', 'b', 'y',
-            'g', 'o', 'o'
-        ],
-        "back": [
-            'g', 'y', 'w',
-            'r', 'y', 'w',
-            'y', 'r', 'o'
-        ],
-        "bottom": [
-            'y', 'o', 'o',
-            'r', 'r', 'w',
-            'w', 'b', 'b'
-        ]
-    }
 
 
 def rotate_down(cube):
@@ -244,40 +108,6 @@ def rotate_down(cube):
     cube["left"][7] = temp[7]
     cube["left"][8] = temp[8]
 
-def expected_orientation_after_front_move():
-    return {
-        "top": [
-            'b', 'b', 'r',
-            'g', 'o', 'w',
-            'w', 'w', 'g'
-        ],
-        "left": [
-            'r', 'o', 'o',
-            'r', 'g', 'w',
-            'b', 'b', 'b'
-        ],
-        "front": [
-            'g', 'g', 'y',
-            'o', 'w', 'g',
-            'o', 'o', 'o'
-        ],
-        "right": [
-            'r', 'b', 'w',
-            'y', 'b', 'y',
-            'g', 'r', 'o'
-        ],
-        "back": [
-            'g', 'y', 'w',
-            'r', 'y', 'w',
-            'b', 'g', 'r'
-        ],
-        "bottom": [
-            'y', 'y', 'y',
-            'o', 'r', 'b',
-            'y', 'r', 'w'
-        ]
-    }
-
 def rotate_front(cube):
     temp = cube["bottom"][:]
     rotate_side_clockwise(cube["front"])
@@ -298,44 +128,10 @@ def rotate_front(cube):
     cube["left"][5] = temp[1]
     cube["left"][8] = temp[2]
 
-def expected_orientation_after_back_move():
-    return {
-        "top": [
-            'w', 'y', 'o',
-            'g', 'o', 'w',
-            'r', 'y', 'g'
-        ],
-        "left": [
-            'r', 'o', 'g',
-            'b', 'g', 'w',
-            'b', 'b', 'w'
-        ],
-        "front": [
-            'y', 'g', 'o',
-            'g', 'w', 'o',
-            'g', 'o', 'o'
-        ],
-        "right": [
-            'y', 'b', 'w',
-            'y', 'b', 'r',
-            'y', 'r', 'y'
-        ],
-        "back": [
-            'b', 'r', 'g',
-            'g', 'y', 'y',
-            'r', 'w', 'w'
-        ],
-        "bottom": [
-            'o', 'w', 'b',
-            'o', 'r', 'b',
-            'r', 'r', 'b'
-        ]
-    }
-
 def rotate_back(cube):
     temp = cube["top"][:]
     rotate_side_clockwise(cube["back"])
-    # top left bottom right
+
     cube["top"][0] = cube["right"][2]
     cube["top"][1] = cube["right"][5]
     cube["top"][2] = cube["right"][8]
@@ -368,6 +164,9 @@ def test_cube_sides(cube, expected):
         print("we didnt do it fam")
 
 def cross(cube):
+    rotate_left(cube)
+    expected = expected_orientation_after_left_move()
+    test_cube_sides(cube, expected)
     # rotate_left(cube)
     # expected = expected_orientation_after_left_move()
     # rotate_right(cube)
@@ -378,9 +177,9 @@ def cross(cube):
     # expected = expected_orientation_after_down_move()
     # rotate_front(cube)
     # expected = expected_orientation_after_front_move()
-    rotate_back(cube)
-    expected = expected_orientation_after_back_move()
-    test_cube_sides(cube, expected)
+    # rotate_back(cube)
+    # expected = expected_orientation_after_back_move()
+    # test_cube_sides(cube, expected)
 
 def main():
     cube = get_cube_from_pictures()
