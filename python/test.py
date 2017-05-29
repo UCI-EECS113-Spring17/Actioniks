@@ -1,3 +1,37 @@
+def get_cube_from_pictures():
+    return {
+        "top": [
+            'b', 'b', 'r',
+            'g', 'o', 'w',
+            'r', 'y', 'g'
+        ],
+        "left": [
+            'r', 'o', 'g',
+            'r', 'g', 'w',
+            'b', 'b', 'w'
+        ],
+        "front": [
+            'y', 'g', 'o',
+            'g', 'w', 'o',
+            'g', 'o', 'o'
+        ],
+        "right": [
+            'y', 'b', 'w',
+            'y', 'b', 'y',
+            'y', 'r', 'o'
+        ],
+        "back": [
+            'g', 'y', 'w',
+            'r', 'y', 'w',
+            'b', 'g', 'r'
+        ],
+        "bottom": [
+            'o', 'w', 'b',
+            'o', 'r', 'b',
+            'y', 'r', 'w'
+        ]
+    }
+
 def expected_orientation_after_left_move():
     return {
         "top": [
