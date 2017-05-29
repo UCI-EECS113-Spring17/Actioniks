@@ -25,7 +25,6 @@ async function click() {
 	let append =
 ['B', 'D', 'D', 'R', 'R', 'R', 'B', 'B', 'B', 'F', 'M', 'U', 'U', 'U', 'U', 'U', 'L', 'F', 'U', 'F', 'F', 'F', 'U', 'U', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'R', 'R', 'U', 'U', 'U', 'B', 'B', 'U', 'B', 'B', 'B', 'F', 'M', 'R', 'R', 'R', 'B', 'B', 'B', 'F', 'M', 'U', 'U', 'U', 'L', 'F', 'U', 'F', 'F', 'F', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'R', 'R', 'R', 'B', 'B', 'B', 'F', 'M']
 
-
 	let converted = append.map((letter) => {
 		if(letter == 'M') {
 			return 14;

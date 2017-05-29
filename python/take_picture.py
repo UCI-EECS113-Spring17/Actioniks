@@ -5,6 +5,40 @@ import cv2
 import numpy as np
 Overlay("base.bit").download()
 
+def get_cube_from_pictures():
+    return {
+        "top": [
+            'b', 'b', 'r',
+            'g', 'o', 'w',
+            'r', 'y', 'g'
+        ],
+        "left": [
+            'r', 'o', 'g',
+            'r', 'g', 'w',
+            'b', 'b', 'w'
+        ],
+        "front": [
+            'y', 'g', 'o',
+            'g', 'w', 'o',
+            'g', 'o', 'o'
+        ],
+        "right": [
+            'y', 'b', 'w',
+            'y', 'b', 'y',
+            'y', 'r', 'o'
+        ],
+        "back": [
+            'g', 'y', 'w',
+            'r', 'y', 'w',
+            'b', 'g', 'r'
+        ],
+        "bottom": [
+            'o', 'w', 'b',
+            'o', 'r', 'b',
+            'y', 'r', 'w'
+        ]
+    }
+
 
 def contains_color(filteredImage, colorChar):
     for y in range(3):
@@ -71,4 +105,4 @@ def take_picture():
 
     cap.release()
 
-take_picture()
+# take_picture()
