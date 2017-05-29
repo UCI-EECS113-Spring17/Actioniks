@@ -301,13 +301,13 @@ def rotate_front(cube):
 def expected_orientation_after_back_move():
     return {
         "top": [
-            'b', 'b', 'r',
+            'w', 'y', 'o',
             'g', 'o', 'w',
             'r', 'y', 'g'
         ],
         "left": [
             'r', 'o', 'g',
-            'r', 'g', 'w',
+            'b', 'g', 'w',
             'b', 'b', 'w'
         ],
         "front": [
@@ -317,41 +317,40 @@ def expected_orientation_after_back_move():
         ],
         "right": [
             'y', 'b', 'w',
-            'y', 'b', 'y',
-            'y', 'r', 'o'
+            'y', 'b', 'r',
+            'y', 'r', 'y'
         ],
         "back": [
-            'g', 'y', 'w',
-            'r', 'y', 'w',
-            'b', 'g', 'r'
+            'b', 'r', 'g',
+            'g', 'y', 'y',
+            'r', 'w', 'w'
         ],
         "bottom": [
             'o', 'w', 'b',
             'o', 'r', 'b',
-            'y', 'r', 'w'
+            'r', 'r', 'b'
         ]
     }
 
 def rotate_back(cube):
-    temp = cube["back"][:]
-    # rotate_side_clockwise(cube["top"])
-    #
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    #
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    #
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    # cube[""][] = cube[""][]
-    #
-    #
-    # cube[""][] = temp[]
-    # cube[""][] = temp[]
-    # cube[""][] = temp[]
+    temp = cube["top"][:]
+    rotate_side_clockwise(cube["back"])
+    # top left bottom right
+    cube["top"][0] = cube["right"][2]
+    cube["top"][1] = cube["right"][5]
+    cube["top"][2] = cube["right"][8]
+
+    cube["right"][2] = cube["bottom"][8]
+    cube["right"][5] = cube["bottom"][7]
+    cube["right"][8] = cube["bottom"][6]
+
+    cube["bottom"][6] = cube["left"][0]
+    cube["bottom"][7] = cube["left"][3]
+    cube["bottom"][8] = cube["left"][6]
+
+    cube["left"][0] = temp[2]
+    cube["left"][3] = temp[1]
+    cube["left"][6] = temp[0]
 
 def test_cube_sides(cube, expected):
     x = 0
