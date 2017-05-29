@@ -1,0 +1,39 @@
+{
+  "name": "asset_manager",
+  "version": "1.0.0",
+  "description": "management for all static assets is a typical web project",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://wsactioneer@github.com/actioneers/asset_manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/actioneers/asset_manager/issues"
+  },
+  "homepage": "https://github.com/actioneers/asset_manager#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "browserify": "^14.1.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^2.0.1",
+    "gulp-watch": "^4.3.11",
+    "underscore": "^1.8.3",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
