@@ -249,6 +249,60 @@ def expected_orientation_after_front_move():
         "top": [
             'b', 'b', 'r',
             'g', 'o', 'w',
+            'w', 'w', 'g'
+        ],
+        "left": [
+            'r', 'o', 'o',
+            'r', 'g', 'w',
+            'b', 'b', 'b'
+        ],
+        "front": [
+            'g', 'g', 'y',
+            'o', 'w', 'g',
+            'o', 'o', 'o'
+        ],
+        "right": [
+            'r', 'b', 'w',
+            'y', 'b', 'y',
+            'g', 'r', 'o'
+        ],
+        "back": [
+            'g', 'y', 'w',
+            'r', 'y', 'w',
+            'b', 'g', 'r'
+        ],
+        "bottom": [
+            'y', 'y', 'y',
+            'o', 'r', 'b',
+            'y', 'r', 'w'
+        ]
+    }
+
+def rotate_front(cube):
+    temp = cube["bottom"][:]
+    rotate_side_clockwise(cube["front"])
+
+    cube["bottom"][0] = cube["right"][0]
+    cube["bottom"][1] = cube["right"][3]
+    cube["bottom"][2] = cube["right"][6]
+
+    cube["right"][0] = cube["top"][6]
+    cube["right"][3] = cube["top"][7]
+    cube["right"][6] = cube["top"][8]
+
+    cube["top"][6] = cube["left"][8]
+    cube["top"][7] = cube["left"][5]
+    cube["top"][8] = cube["left"][2]
+
+    cube["left"][2] = temp[0]
+    cube["left"][5] = temp[1]
+    cube["left"][8] = temp[2]
+
+def expected_orientation_after_back_move():
+    return {
+        "top": [
+            'b', 'b', 'r',
+            'g', 'o', 'w',
             'r', 'y', 'g'
         ],
         "left": [
@@ -277,27 +331,6 @@ def expected_orientation_after_front_move():
             'y', 'r', 'w'
         ]
     }
-
-def rotate_front(cube):
-    temp = cube["back"][:]
-    rotate_side_clockwise(cube["top"])
-
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-    cube[""][] = cube[""][]
-
-
-    cube[""][] = temp[]
-    cube[""][] = temp[]
-    cube[""][] = temp[]
 
 def rotate_back(cube):
     temp = cube["back"][:]
@@ -344,10 +377,10 @@ def cross(cube):
     # expected = expected_orientation_after_up_move()
     # rotate_down(cube)
     # expected = expected_orientation_after_down_move()
-    rotate_front(cube)
-    expected = expected_orientation_after_front_move()
-    # rotate_back(cube)
-    # expected = expected_orientation_after_back_move()
+    # rotate_front(cube)
+    # expected = expected_orientation_after_front_move()
+    rotate_back(cube)
+    expected = expected_orientation_after_back_move()
     test_cube_sides(cube, expected)
 
 def main():
