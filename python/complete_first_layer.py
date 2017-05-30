@@ -23,16 +23,12 @@ def check_bottom_right_corner_front(cube, solution):
             while (cube["front"][8] != cube["front"][4] or
                     cube["right"][6] != cube["right"][4] or
                     cube["bottom"][2] != cube["bottom"][4]):
-                print("moving")
                 first_layer_algorithm(cube, solution)
         else:
             first_layer_algorithm(cube, solution)
 
 def check_bottom_right_corner_back(cube, solution):
-    flag = False
-    print(cube["front"])
-    print(cube["right"])
-    print(cube["back"])
+    corner = [cube["right"][8], cube["back"][6], cube["bottom"][8]]
     if (cube["right"][8] == cube["front"][4] or
             cube["back"][6] == cube["front"][4] or
             cube["bottom"][8] == cube["front"][4]):
@@ -47,45 +43,64 @@ def check_bottom_right_corner_back(cube, solution):
                 cube["bottom"][8] == cube["front"][4] or
                 cube["bottom"][8] == cube["bottom"][4] or
                 cube["bottom"][8] == cube["right"][4]):
-            flag = True
             while (cube["front"][8] != cube["front"][4] or
                     cube["right"][6] != cube["right"][4] or
                     cube["bottom"][2] != cube["bottom"][4]):
                 first_layer_algorithm(cube, solution)
         else:
-            print("skipping")
-            first_layer_algorithm(cube, solution)
-    return flag;
+            if 'o' in corner and 'b' in corner:
+                if cube["top"][4] == 'o':
+                    rotate_back(cube, 1, solution)
+                elif cube["top"][4] == 'b':
+                    rotate_back(cube, 2, solution)
+                elif cube["top"][4] == 'r':
+                    rotate_back(cube, 3, solution)
+            elif 'o' in corner and 'g' in corner:
+                if cube["top"][4] == 'g':
+                    rotate_back(cube, 1, solution)
+                elif cube["top"][4] == 'o':
+                    rotate_back(cube, 2, solution)
+                elif cube["top"][4] == 'b':
+                    rotate_back(cube, 3, solution)
+            elif 'r' in corner and 'b' in corner:
+                if cube["top"][4] == 'b':
+                    rotate_back(cube, 1, solution)
+                elif cube["top"][4] == 'r':
+                    rotate_back(cube, 2, solution)
+                elif cube["top"][4] == 'g':
+                    rotate_back(cube, 3, solution)
+            elif 'r' in corner and 'g' in corner:
+                if cube["top"][4] == 'r':
+                    rotate_back(cube, 1, solution)
+                elif cube["top"][4] == 'g':
+                    rotate_back(cube, 2, solution)
+                elif cube["top"][4] == 'o':
+                    rotate_back(cube, 3, solution)
 
 def complete_first_layer(cube, solution):
-    # while (cube["front"][0] != cube["front"][4] or
-    #         cube["front"][2] != cube["front"][4] or
-    #         cube["front"][6] != cube["front"][4] or
-    #         cube["front"][8] != cube["front"][4] or
-    #         cube["bottom"][0] != cube["bottom"][4] or
-    #         cube["bottom"][2] != cube["bottom"][4] or
-    #         cube["top"][6] != cube["top"][4] or
-    #         cube["top"][8] != cube["top"][4] or
-    #         cube["right"][0] != cube["right"][4] or
-    #         cube["right"][6] != cube["right"][4] or
-    #         cube["left"][2] != cube["left"][4] or
-    #         cube["left"][8] != cube["left"][4]):
-    for i in range(20):
-        # check_bottom_right_corner_front(cube, solution)
-        print(i)
+    while (cube["front"][0] != cube["front"][4] or
+            cube["front"][2] != cube["front"][4] or
+            cube["front"][6] != cube["front"][4] or
+            cube["front"][8] != cube["front"][4] or
+            cube["bottom"][0] != cube["bottom"][4] or
+            cube["bottom"][2] != cube["bottom"][4] or
+            cube["top"][6] != cube["top"][4] or
+            cube["top"][8] != cube["top"][4] or
+            cube["right"][0] != cube["right"][4] or
+            cube["right"][6] != cube["right"][4] or
+            cube["left"][2] != cube["left"][4] or
+            cube["left"][8] != cube["left"][4]):
+        check_bottom_right_corner_front(cube, solution)
         check_bottom_right_corner_back(cube, solution)
-        print(check_bottom_right_corner_back(cube, solution))
         rotate_cube_clockwise(cube, solution)
 
 def main():
     cube = get_cube_from_pictures()
     solution  = []
-    # print_cube(cube)
     make_cross(cube, solution)
-    print()
-    # print_cube(cube)
-    # complete_first_layer(cube, solution)
-    # print_cube(cube)
-    # print("done")
+    print_cube(cube)
+    complete_first_layer(cube, solution)
+    print_cube(cube)
+    print(solution)
 
 main()

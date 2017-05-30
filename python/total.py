@@ -429,8 +429,6 @@ def make_cross(cube, solution):
         check_back(cube, solution)
         check_top(cube, solution)
         rotate_cube_clockwise(cube, solution)
-        print(solution)
-        print_cube(cube)
 
 def print_cube(cube):
     print("        " + cube["top"][0] + " " + cube["top"][1] + " " + cube["top"][2])
