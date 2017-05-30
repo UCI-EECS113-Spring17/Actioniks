@@ -10,7 +10,7 @@ def check_front(cube, solution):
                 rotate_right(cube, 2, solution)
                 if (cube["front"][7] == frontColor and
                 cube["bottom"][1] != cube["bottom"][4]):
-                rotate_down(cube, 2, solution)
+                    rotate_down(cube, 2, solution)
 
 def check_back(cube, solution):
     things = {
@@ -71,26 +71,30 @@ def check_back(cube, solution):
             rotate_back(cube, 3, solution)
             rotate_left(cube, 2, solution)
 
-def check_top(cube, solution):
-    # normal = o > g > r > b
-    things = {
-        "o": ['g', 'r', 'b'],
-        "g": ['r', 'b', 'o'],
-        "r": ['b', 'o', 'g'],
-        "b": ['o', 'g', 'r']
-    }
-    if cube["top"][1] == cube["front"][4]:
-        if cube["back"][1] == cube["top"][4]:
+
+def top_determine_one(cube, solution):
+     # normal = o > g > r > b
+     things = {
+         "o": ['g', 'r', 'b'],
+         "g": ['r', 'b', 'o'],
+         "r": ['b', 'o', 'g'],
+         "b": ['o', 'g', 'r']
+     }
+     if cube["top"][1] == cube["front"][4]:
+         if cube["back"][1] == cube["top"][4]:
             rotate_up(cube, 3, solution)
             rotate_left(cube, 1, solution)
             rotate_front(cube, 1, solution)
             rotate_up(cube, 1, solution)
             rotate_front(cube, 3, solution)
             rotate_up(cube, 3, solution)
-        else:
-            for i in range(3):
-                if cube["back"][1] == things[cube["top"][4]][i]:
-                    rotate_back(cube, i + 1, solution)
+         else:
+             for i in range(3):
+                 if cube["back"][1] == things[cube["top"][4]][i]:
+                     rotate_back(cube, i + 1, solution)
+
+def check_top(cube, solution):
+    top_determine_one(cube, solution)
 
     if cube["top"][3] == cube["front"][4]:
         if cube["left"][1] == cube["left"][4]:

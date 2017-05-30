@@ -118,9 +118,9 @@ def rotate_front(cube, amount = 1, solution = False):
         temp = cube["bottom"][:]
         rotate_side_clockwise(cube["front"])
 
-        cube["bottom"][0] = cube["right"][0]
+        cube["bottom"][2] = cube["right"][0]
         cube["bottom"][1] = cube["right"][3]
-        cube["bottom"][2] = cube["right"][6]
+        cube["bottom"][0] = cube["right"][6]
 
         cube["right"][0] = cube["top"][6]
         cube["right"][3] = cube["top"][7]
@@ -178,7 +178,7 @@ def rotate_middle(cube, amount = 1, solution = False):
         cube["right"][4] = temp[4]
         cube["right"][7] = temp[5]
         if solution != False:
-            solution.extend('B')
+            solution.extend('M')
 
 def rotate_cube_clockwise(cube, solution):
     rotate_back(cube, 3)
