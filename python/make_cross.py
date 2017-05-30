@@ -1,16 +1,16 @@
-import numpy as np
-
 def check_front(cube, solution):
-    frontColor = cube["front"][4]
-    if cube["front"][1] == frontColor and cube["top"][7] != cube["top"][4]:
+    if (cube["front"][1] == cube["front"][4] and
+            cube["top"][7] != cube["top"][4]):
         rotate_up(cube, 2, solution)
-        if cube["front"][3] == frontColor and cube["left"][5] != cube["left"][4]:
-            rotate_left(cube, 2, solution)
-            if cube["front"][5] == frontColor and cube["right"][3] != cube["right"][4]:
-                rotate_right(cube, 2, solution)
-                if (cube["front"][7] == frontColor and
-                cube["bottom"][1] != cube["bottom"][4]):
-                    rotate_down(cube, 2, solution)
+    if (cube["front"][3] == cube["front"][4] and
+            cube["left"][5] != cube["left"][4]):
+        rotate_left(cube, 2, solution)
+    if (cube["front"][5] == cube["front"][4] and
+            cube["right"][3] != cube["right"][4]):
+        rotate_right(cube, 2, solution)
+    if (cube["front"][7] == cube["front"][4] and
+            cube["bottom"][1] != cube["bottom"][4]):
+        rotate_down(cube, 2, solution)
 
 def check_back(cube, solution):
     things = {
@@ -71,7 +71,6 @@ def check_back(cube, solution):
             rotate_back(cube, 3, solution)
             rotate_left(cube, 2, solution)
 
-
 def top_determine_one(cube, solution):
      # normal = o > g > r > b
      things = {
@@ -130,4 +129,3 @@ def make_cross(cube, solution):
         check_back(cube, solution)
         check_top(cube, solution)
         rotate_cube_clockwise(cube, solution)
-    print(solution)

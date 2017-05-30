@@ -1,4 +1,3 @@
-
 def first_layer_algorithm(cube, solution):
     rotate_right(cube, 3, solution)
     rotate_back(cube, 3, solution)
