@@ -5,6 +5,10 @@ def main():
     print_cube(cube)
     complete_first_layer(cube, solution)
     print_cube(cube)
+    complete_second_layer(cube, solution)
+    print_cube(cube)
+    complete_third_layer(cube, solution)
+    print_cube(cube)
     print(solution)
 
 main()

@@ -135,6 +135,7 @@ def print_cube(cube):
     print("        " + cube["bottom"][0] + " " + cube["bottom"][1] + " " + cube["bottom"][2])
     print("        " + cube["bottom"][3] + " " + cube["bottom"][4] + " " + cube["bottom"][5])
     print("        " + cube["bottom"][6] + " " + cube["bottom"][7] + " " + cube["bottom"][8])
+    print()
 
 #test.py
 
@@ -833,19 +834,19 @@ def complete_third_layer(cube, solution):
 
 # complete_third_layer.py
 
-def main():
-    cube = get_cube_from_pictures()
-    solution  = []
-    make_cross(cube, solution)
-    print_cube(cube)
-    complete_first_layer(cube, solution)
-    print_cube(cube)
-    complete_second_layer(cube, solution)
-    print_cube(cube)
-    complete_third_layer(cube, solution)
-    print_cube(cube)
-    print(solution)
-
-main()
+# def main():
+#     cube = get_cube_from_pictures()
+#     solution  = []
+#     make_cross(cube, solution)
+#     print_cube(cube)
+#     complete_first_layer(cube, solution)
+#     print_cube(cube)
+#     complete_second_layer(cube, solution)
+#     print_cube(cube)
+#     complete_third_layer(cube, solution)
+#     print_cube(cube)
+#     print(solution)
+#
+# main()
 
 # main.py
