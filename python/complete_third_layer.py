@@ -1,37 +1,3 @@
-def get_cube_from_pictures():
-    return {
-        "top": [
-            'b', 'y', 'r',
-            'g', 'g', 'g',
-            'g', 'g', 'g'
-        ],
-        "left": [
-            'y', 'r', 'r',
-            'y', 'r', 'r',
-            'b', 'r', 'r'
-        ],
-        "front": [
-            'w', 'w', 'w',
-            'w', 'w', 'w',
-            'w', 'w', 'w'
-        ],
-        "right": [
-            'o', 'o', 'g',
-            'o', 'o', 'y',
-            'o', 'o', 'o'
-        ],
-        "back": [
-            'y', 'b', 'r',
-            'o', 'y', 'r',
-            'g', 'g', 'y'
-        ],
-        "bottom": [
-            'b', 'b', 'b',
-            'b', 'b', 'b',
-            'o', 'y', 'y'
-        ]
-    }
-
 def third_layer_algorithm_cross(cube, solution):
     # F R U R'  U'  F'
     # U R B RRR BBB UUU
@@ -221,13 +187,3 @@ def complete_third_layer(cube, solution):
     match_back_edges_to_sides(cube, solution)
     position_back_corners_to_sides(cube, solution)
     finish_third_layer(cube, solution)
-
-def main():
-    cube = get_cube_from_pictures()
-    solution  = []
-    complete_third_layer(cube, solution)
-    print()
-    print_cube(cube)
-    print(solution)
-
-main()
