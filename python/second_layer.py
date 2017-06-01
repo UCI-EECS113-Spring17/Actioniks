@@ -111,14 +111,3 @@ def complete_second_layer(cube, solution):
             cube["bottom"][3] != cube["bottom"][4] or
             cube["bottom"][5] != cube["bottom"][4]):
         check_top_one_back_one(cube, solution)
-
-def main():
-    cube = get_cube_from_pictures()
-    solution  = []
-    print_cube(cube)
-    complete_second_layer(cube, solution)
-    print()
-    print_cube(cube)
-    print(solution)
-
-main()
