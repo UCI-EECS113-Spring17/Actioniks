@@ -81,10 +81,40 @@ async function click() {
     buttons[converted2[i]].click();
 	}
 
-	let rotations2 = converted.filter((number) => number == 14)
+	let rotations2 = converted2.filter((number) => number == 14)
 
 	console.log(rotations2.length);
 	console.log(converted2.length);
+
+	let thirdLayer =
+['U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'B', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'B', 'B']
+	let converted3 = thirdLayer.map((letter) => {
+		if(letter == 'M') {
+			return 14;
+		} else if(letter == 'L') {
+			return 0;
+		} else if(letter == 'R') {
+			return 1;
+		} else if(letter == 'U') {
+			return 2;
+		} else if(letter == 'D') {
+			return 3;
+		} else if(letter == 'F') {
+			return 4;
+		} else {
+			return 5;
+		}
+	})
+
+	for(let i = 0; i < converted3.length; i++) {
+    buttons[converted3[i]].click();
+	}
+
+	let rotations3 = converted3.filter((number) => number == 14)
+
+	console.log(rotations3.length);
+	console.log(converted3.length);
+
 
 
 

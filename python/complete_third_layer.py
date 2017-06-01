@@ -200,23 +200,34 @@ def position_back_corners_to_sides(cube, solution):
             i = 0
             third_layer_algorithm_position_corners(cube, solution)
 
+def third_layer_final_algorithm(cube, solution):
+    # R'  D'  R D
+    # RRR FFF R F
+    rotate_right(cube, 3, solution)
+    rotate_front(cube, 3, solution)
+    rotate_right(cube, 1, solution)
+    rotate_front(cube, 1, solution)
+
+def finish_third_layer(cube, solution):
+    for i in range(4):
+        while (cube["top"][2] != cube["top"][1] and
+                cube["right"][2] != cube["right"][5]):
+            third_layer_final_algorithm(cube, solution)
+            print(i)
+        rotate_back(cube, 1, solution)
+
 def complete_third_layer(cube, solution):
-    # print_cube(cube)
     complete_back_cross(cube, solution)
-    print()
-    # print_cube(cube)
     match_back_edges_to_sides(cube, solution)
-    print()
-    print_cube(cube)
     position_back_corners_to_sides(cube, solution)
-    print()
-    print_cube(cube)
+    finish_third_layer(cube, solution)
 
 def main():
     cube = get_cube_from_pictures()
     solution  = []
     complete_third_layer(cube, solution)
     print()
+    print_cube(cube)
     print(solution)
 
 main()
