@@ -1,37 +1,3 @@
-def get_cube_from_pictures():
-    return {
-        "top": [
-            'o', 'b', 'y',
-            'o', 'b', 'r',
-            'b', 'b', 'b'
-        ],
-        "left": [
-            'g', 'b', 'o',
-            'y', 'o', 'o',
-            'r', 'o', 'o'
-        ],
-        "front": [
-            'w', 'w', 'w',
-            'w', 'w', 'w',
-            'w', 'w', 'w'
-        ],
-        "right": [
-            'r', 'b', 'o',
-            'r', 'r', 'y',
-            'r', 'g', 'y'
-        ],
-        "back": [
-            'b', 'y', 'y',
-            'o', 'y', 'r',
-            'r', 'g', 'g'
-        ],
-        "bottom": [
-            'g', 'g', 'g',
-            'g', 'g', 'r',
-            'y', 'y', 'b'
-        ]
-    }
-
 def second_layer_algorithm_left(cube, solution):
     print("left")
     # U'  L'  U L U F U'  F'

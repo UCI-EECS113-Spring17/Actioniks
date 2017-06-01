@@ -639,6 +639,8 @@ def complete_second_layer(cube, solution):
             cube["bottom"][5] != cube["bottom"][4]):
         check_top_one_back_one(cube, solution)
 
+# complete_second_layer.py
+
 # def main():
 #     cube = get_cube_from_pictures()
 #     solution  = []
