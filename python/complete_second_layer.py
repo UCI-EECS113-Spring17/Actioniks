@@ -1,6 +1,4 @@
 def second_layer_algorithm_left(cube, solution):
-    # U'  L'  U L U F U'  F'
-    # BBB LLL B L B U BBB UUU
     rotate_back(cube, 3, solution)
     rotate_left(cube, 3, solution)
     rotate_back(cube, 1, solution)
@@ -11,8 +9,6 @@ def second_layer_algorithm_left(cube, solution):
     rotate_up(cube, 3, solution)
 
 def second_layer_algorithm_right(cube, solution):
-    # U R U'  R'  U'  F'  U F
-    # B R BBB RRR BBB UUU B U
     rotate_back(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 3, solution)
@@ -26,12 +22,6 @@ def second_layer_algorithm_right(cube, solution):
 def check_top_one_back_one(cube, solution):
     rotate = True
     sides = ["left", "bottom", "right"]
-    things = {
-        "o": ['g', 'r', 'b'],
-        "g": ['r', 'b', 'o'],
-        "r": ['b', 'o', 'g'],
-        "b": ['o', 'g', 'r']
-    }
     if (cube["top"][1] == cube["top"][4] and
             cube["back"][1] == cube["left"][4]):
         second_layer_algorithm_left(cube, solution)
