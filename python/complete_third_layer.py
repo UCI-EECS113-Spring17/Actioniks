@@ -1,6 +1,4 @@
 def third_layer_algorithm_cross(cube, solution):
-    # F R U R'  U'  F'
-    # U R B RRR BBB UUU
     rotate_up(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 1, solution)
@@ -9,24 +7,33 @@ def third_layer_algorithm_cross(cube, solution):
     rotate_up(cube, 3, solution)
 
 def complete_back_cross(cube, solution):
-    if cube["back"][1] != cube["back"][4]:
+    amountOfBack = 0
+    for i in range(4):
+        if cube["back"][i * 2 + 1] == cube["back"][4]:
+            amountOfBack += 1
+    if amountOfBack == 4:
+        return
+    elif amountOfBack == 0:
         third_layer_algorithm_cross(cube, solution)
-        while (cube["back"][5] != cube["back"][4] or
-                cube["back"][7] != cube["back"][4]):
-            rotate_cube_clockwise(cube, solution)
+    if (cube["back"][1] == cube["back"][4] and
+            cube["back"][7] == cube["back"][4] and
+            cube["back"][5] != cube["back"][4] and
+            cube["back"][3] != cube["back"][4]):
+        rotate_back(cube, 1, solution)
+    if (cube["back"][3] == cube["back"][4] and
+            cube["back"][5] == cube["back"][4] and
+            cube["back"][1] != cube["back"][4] and
+            cube["back"][7] != cube["back"][4]):
         third_layer_algorithm_cross(cube, solution)
-        third_layer_algorithm_cross(cube, solution)
-    elif cube["back"][7] != cube["back"][4]:
-        third_layer_algorithm_cross(cube, solution)
-        third_layer_algorithm_cross(cube, solution)
-    elif (cube["back"][3] != cube["back"][4] or
-            cube["back"][5] != cube["back"][4]):
-        third_layer_algorithm_cross(cube, solution)
+        return
 
+    while (cube["back"][5] != cube["back"][4] or
+            cube["back"][7] != cube["back"][4]):
+        rotate_cube_clockwise(cube, solution)
+    third_layer_algorithm_cross(cube, solution)
+    third_layer_algorithm_cross(cube, solution)
 
 def third_layer_algorithm_swap_edges(cube, solution):
-    # R U R'  U R U2 R'  U
-    # R B RRR B R BB RRR B
     rotate_right(cube, 1, solution)
     rotate_back(cube, 1, solution)
     rotate_right(cube, 3, solution)
@@ -46,33 +53,21 @@ def check_back_edges_to_sides(cube, solution):
         return False;
 
 def match_back_edges_to_sides(cube, solution):
-    sideOrder = {
-        'o': 'b',
-        'b': 'r',
-        'r': 'g',
-        'g': 'o'
-    }
-    realOrder = [
-        cube["top"][1],
-        cube["right"][5],
-        cube["bottom"][7],
-        cube["left"][3],
-        cube["top"][1]
-    ]
     while (check_back_edges_to_sides(cube, solution)):
-        for i in range(4):
-            if sideOrder[realOrder[i]] == realOrder[i + 1]:
-                while cube["top"][4] != realOrder[i + 1]:
-                    rotate_cube_clockwise(cube, solution)
-                while cube["bottom"][7] != cube["bottom"][4]:
-                    rotate_back(cube, 1, solution)
-                break
-        if(check_back_edges_to_sides(cube, solution)):
+        if cube["top"][1] == cube["top"][4]:
+            rotate_cube_clockwise(cube, solution)
+        elif (cube["top"][1] == cube["left"][4] and
+                cube["left"][3] == cube["top"][4]):
             third_layer_algorithm_swap_edges(cube, solution)
+        elif (cube["top"][1] == cube["bottom"][4] and
+                cube["bottom"][7] == cube["top"][4]):
+            third_layer_algorithm_swap_edges(cube, solution)
+            rotate_cube_clockwise(cube, solution)
+            rotate_cube_clockwise(cube, solution)
+        else:
+            rotate_back(cube, 1, solution)
 
 def third_layer_algorithm_position_corners(cube, solution):
-    # U R U'  L'  U R'  U'  L
-    # B R BBB LLL B RRR BBB L
     rotate_back(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 3, solution)
@@ -167,8 +162,6 @@ def position_back_corners_to_sides(cube, solution):
             third_layer_algorithm_position_corners(cube, solution)
 
 def third_layer_final_algorithm(cube, solution):
-    # R'  D'  R D
-    # RRR FFF R F
     rotate_right(cube, 3, solution)
     rotate_front(cube, 3, solution)
     rotate_right(cube, 1, solution)
@@ -176,10 +169,9 @@ def third_layer_final_algorithm(cube, solution):
 
 def finish_third_layer(cube, solution):
     for i in range(4):
-        while (cube["top"][2] != cube["top"][1] and
+        while (cube["top"][2] != cube["top"][1] or
                 cube["right"][2] != cube["right"][5]):
             third_layer_final_algorithm(cube, solution)
-            print(i)
         rotate_back(cube, 1, solution)
 
 def complete_third_layer(cube, solution):

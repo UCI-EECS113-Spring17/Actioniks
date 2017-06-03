@@ -32,8 +32,15 @@ def test_second_layer(cube):
         passed = False
     if cube["right"][7] != cube["right"][4]:
         passed = False
-
     return passed
+
+def test_final_layer(cube):
+    sides = ["top", "bottom", "left", "right", "back", "front"]
+    for i in range(6):
+        for j in range(9):
+            if cube[sides[i]][j] != cube[sides[i]][j]:
+                return False
+    return True
 
 def main():
     cube = []
@@ -45,11 +52,10 @@ def main():
         solution  = []
         make_cross(cube, solution)
         complete_first_layer(cube, solution)
-        print_cube(cube)
         complete_second_layer(cube, solution)
+        complete_third_layer(cube, solution)
         print_cube(cube)
-        if (test_first_layer(cube) == False or
-                test_second_layer(cube) == False):
+        if test_final_layer(cube) == False:
             failed.append(i)
             passed = False
         totalMoves += len(solution)
