@@ -369,6 +369,7 @@ def check_back(cube, solution):
             rotate_left(cube, 2, solution)
 
 def top_determine_one(cube, solution):
+     # normal = o > g > r > b
      things = {
          "o": ['g', 'r', 'b'],
          "g": ['r', 'b', 'o'],
@@ -426,7 +427,7 @@ def make_cross(cube, solution):
         check_top(cube, solution)
         rotate_cube_clockwise(cube, solution)
 
-# make_cross.py
+
 
 def first_layer_algorithm(cube, solution):
     rotate_right(cube, 3, solution)
@@ -522,6 +523,7 @@ def complete_first_layer(cube, solution):
         check_bottom_right_corner_front(cube, solution)
         check_bottom_right_corner_back(cube, solution)
         rotate_cube_clockwise(cube, solution)
+
 
 # complete_first_layer.py
 
