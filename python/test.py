@@ -14,11 +14,12 @@ def test_first_layer(cube):
         passed = False
     return passed
 
-def main():
+def test_all_first_layers():
     cube = []
     failed = []
     passed = True
-    for i in range(17):
+    totalMoves = 0
+    for i in range(20):
         cube = get_cube_from_pictures(i)
         solution  = []
         make_cross(cube, solution)
@@ -26,11 +27,17 @@ def main():
         if test_first_layer(cube) == False:
             failed.append(i)
             passed = False
+        totalMoves += len(solution)
     if passed == True:
         print('all tests passed')
     else:
         print('some tests failed')
         for i in range(len(failed)):
             print_cube(cube)
+    print("total Moves: " + str(totalMoves))
+
+def main():
+    test_all_first_layers()
+
 
 main()

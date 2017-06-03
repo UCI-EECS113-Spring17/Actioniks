@@ -370,6 +370,7 @@ def check_back(cube, solution):
             rotate_left(cube, 2, solution)
 
 def top_determine_one(cube, solution):
+     # normal = o > g > r > b
      things = {
          "o": ['g', 'r', 'b'],
          "g": ['r', 'b', 'o'],
@@ -378,7 +379,6 @@ def top_determine_one(cube, solution):
      }
      if cube["top"][1] == cube["front"][4]:
          if cube["back"][1] == cube["top"][4]:
-            print("this is called")
             rotate_up(cube, 3, solution)
             rotate_left(cube, 1, solution)
             rotate_front(cube, 1, solution)
@@ -389,8 +389,6 @@ def top_determine_one(cube, solution):
              for i in range(3):
                  if cube["back"][1] == things[cube["top"][4]][i]:
                      rotate_back(cube, i + 1, solution)
-                     rotate_cube_clockwise(cube, solution, i + 1)
-                     top_determine_one(cube, solution)
 
 def check_top(cube, solution):
     top_determine_one(cube, solution)
@@ -429,6 +427,8 @@ def make_cross(cube, solution):
         check_back(cube, solution)
         check_top(cube, solution)
         rotate_cube_clockwise(cube, solution)
+
+
 
 def first_layer_algorithm(cube, solution):
     rotate_right(cube, 3, solution)
@@ -524,8 +524,7 @@ def complete_first_layer(cube, solution):
         check_bottom_right_corner_front(cube, solution)
         check_bottom_right_corner_back(cube, solution)
         rotate_cube_clockwise(cube, solution)
-# if all(x >= 2 for x in (A, B, C, D)):
-#     print A, B, C, D
+
 
 # complete_first_layer.py
 
@@ -802,21 +801,3 @@ def complete_third_layer(cube, solution):
     finish_third_layer(cube, solution)
 
 # complete_third_layer.py
-
-
-# def main():
-#     cube = get_cube_from_pictures()
-#     solution  = []
-#     make_cross(cube, solution)
-#     print_cube(cube)
-#     complete_first_layer(cube, solution)
-#     print_cube(cube)
-#     complete_second_layer(cube, solution)
-#     print_cube(cube)
-#     complete_third_layer(cube, solution)
-#     print_cube(cube)
-#     print(solution)
-#
-# main()
-
-# main.py
