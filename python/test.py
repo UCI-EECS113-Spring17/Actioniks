@@ -14,7 +14,28 @@ def test_first_layer(cube):
         passed = False
     return passed
 
-def test_all_first_layers():
+def test_second_layer(cube):
+    passed = True
+    if cube["top"][3] != cube["top"][4]:
+        passed = False
+    if cube["top"][5] != cube["top"][4]:
+        passed = False
+    if cube["left"][1] != cube["left"][4]:
+        passed = False
+    if cube["left"][7] != cube["left"][4]:
+        passed = False
+    if cube["bottom"][3] != cube["bottom"][4]:
+        passed = False
+    if cube["bottom"][5] != cube["bottom"][4]:
+        passed = False
+    if cube["right"][1] != cube["right"][4]:
+        passed = False
+    if cube["right"][7] != cube["right"][4]:
+        passed = False
+
+    return passed
+
+def main():
     cube = []
     failed = []
     passed = True
@@ -24,20 +45,22 @@ def test_all_first_layers():
         solution  = []
         make_cross(cube, solution)
         complete_first_layer(cube, solution)
-        if test_first_layer(cube) == False:
+        print_cube(cube)
+        complete_second_layer(cube, solution)
+        print_cube(cube)
+        if (test_first_layer(cube) == False or
+                test_second_layer(cube) == False):
             failed.append(i)
             passed = False
         totalMoves += len(solution)
     if passed == True:
         print('all tests passed')
     else:
-        print('some tests failed')
+        print('some tests failed\n')
         for i in range(len(failed)):
+            print("number: " + str(failed[i]))
             print_cube(cube)
     print("total Moves: " + str(totalMoves))
-
-def main():
-    test_all_first_layers()
 
 
 main()

@@ -180,9 +180,10 @@ def rotate_middle(cube, amount = 1, solution = False):
         if solution != False:
             solution.extend('M')
 
-def rotate_cube_clockwise(cube, solution):
-    rotate_back(cube, 3)
-    rotate_front(cube)
-    rotate_middle(cube)
-    # solution.extend('C')
-    solution.extend('BBBFM')
+def rotate_cube_clockwise(cube, solution, amount = 1):
+    for i in range(amount):
+        rotate_back(cube, 3)
+        rotate_front(cube)
+        rotate_middle(cube)
+        # solution.extend('C')
+        solution.extend('BBBFM')
