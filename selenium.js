@@ -49,13 +49,6 @@ async function click() {
 
 	let rotations = converted.filter((number) => number == 14)
 
-	console.log(rotations.length);
-	console.log(converted.length);
-
-
-
-
-
 	let secondLayer =
 ['B', 'R', 'B', 'B', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'U', 'B', 'B', 'B', 'R', 'B', 'B', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'U', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'L', 'B', 'U', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'L', 'B', 'U', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'L', 'B', 'U', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'L', 'B', 'U', 'B', 'B', 'B', 'U', 'U', 'U']
 
@@ -83,9 +76,6 @@ async function click() {
 
 	let rotations2 = converted2.filter((number) => number == 14)
 
-	console.log(rotations2.length);
-	console.log(converted2.length);
-
 	let thirdLayer =
 ['U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'U', 'R', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'U', 'U', 'U', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'B', 'B', 'F', 'M', 'B', 'B', 'B', 'F', 'M', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'R', 'B', 'B', 'B', 'L', 'L', 'L', 'B', 'R', 'R', 'R', 'B', 'B', 'B', 'L', 'B', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'B', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'R', 'R', 'R', 'F', 'F', 'F', 'R', 'F', 'B', 'B']
 	let converted3 = thirdLayer.map((letter) => {
@@ -112,13 +102,7 @@ async function click() {
 
 	let rotations3 = converted3.filter((number) => number == 14)
 
-	console.log(rotations3.length);
-	console.log(converted3.length);
-
-
-
-
-
+	console.log(converted3.length + converted2.length + converted.length);
 }
 
 click();

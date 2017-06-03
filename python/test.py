@@ -16,10 +16,12 @@ def test_first_layer(cube):
 
 def main():
     cube = get_cube_from_pictures()
-    solution  = []
-    make_cross(cube, solution)
-    complete_first_layer(cube, solution)
-    print_cube(cube)
+    for i in range(10):
+        cube = get_cube_from_pictures(i)
+        solution  = []
+        make_cross(cube, solution)
+        complete_first_layer(cube, solution)
+        print_cube(cube)
     if test_first_layer(cube) == True:
         print('all tests passed')
     else:
