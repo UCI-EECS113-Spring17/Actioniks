@@ -185,5 +185,5 @@ def rotate_cube_clockwise(cube, solution, amount = 1):
         rotate_back(cube, 3)
         rotate_front(cube)
         rotate_middle(cube)
-        # solution.extend('C')
-        solution.extend('BBBFM')
+        solution.extend('C')
+        # solution.extend('BBBFM')

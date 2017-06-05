@@ -5,64 +5,32 @@ import cv2
 import numpy as np
 Overlay("base.bit").download()
 
-def get_cube_from_pictures():
-    return {
-        "top": [
-            'b', 'b', 'r',
-            'g', 'o', 'w',
-            'r', 'y', 'g'
-        ],
-        "left": [
-            'r', 'o', 'g',
-            'r', 'g', 'w',
-            'b', 'b', 'w'
-        ],
-        "front": [
-            'y', 'g', 'o',
-            'g', 'w', 'o',
-            'g', 'o', 'o'
-        ],
-        "right": [
-            'y', 'b', 'w',
-            'y', 'b', 'y',
-            'y', 'r', 'o'
-        ],
-        "back": [
-            'g', 'y', 'w',
-            'r', 'y', 'w',
-            'b', 'g', 'r'
-        ],
-        "bottom": [
-            'o', 'w', 'b',
-            'o', 'r', 'b',
-            'y', 'r', 'w'
-        ]
-    }
-
-
-def contains_color(filteredImage, colorChar):
-    for y in range(3):
-        for x in range(3):
-            total = 0.0
-            for i in range(y*int(frameHeight/3), (y+1)*int(frameHeight/3)):
-                for j in range(x*int(frameWidth/3), (x+1)*int(frameWidth/3)):
-                    total += filteredImage.item(i,j)
-            if total/squareSize > 50:
-                faceColors[y][x] = colorChar
-
-def take_picture():
+def get_side_from_picture():
+    faceColors = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+    faceColorAmounts = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    frameWidth = 190
+    frameHeight = 190
     cap = cv2.VideoCapture(0)
     _, uncropped = cap.read()
-    frameWidth = 140
-    frameHeight = 150
     squareSize = int(frameWidth * frameHeight / 9)
     # img[y: y + h, x: x + w]
-    cubePicture = uncropped[240:240+frameHeight+1, 120:120+frameWidth+1]
+    cubePicture = uncropped[240:240+frameHeight, 190:190+frameWidth]
     # cubePicture = uncropped
 
-    hsv = cv2.cvtColor(cubePicture, cv2.COLOR_BGR2HSV)
+    def contains_color(filteredImage, colorChar):
+        for y in range(3):
+            for x in range(3):
+                total = 0.0
+                for i in range(y * int(frameHeight / 3),
+                        (y + 1) * int(frameHeight / 3)):
+                    for j in range(x * int(frameWidth / 3),
+                            (x + 1) * int(frameWidth / 3)):
+                        total += filteredImage.item(i,j)
+                if total/squareSize > faceColorAmounts[y * 3 + x]:
+                    faceColors[y * 3 + x] = colorChar
+                    faceColorAmounts[y * 3 + x] = total/squareSize
 
-    faceColors = [['0','0','0'],['0','0','0'],['0','0','0']]
+    hsv = cv2.cvtColor(cubePicture, cv2.COLOR_BGR2HSV)
 
     lowerBlue = np.array([110,100,50])
     upperBlue = np.array([130,255,255])
@@ -88,8 +56,6 @@ def take_picture():
     upperRed = np.array([10,255,255])
     redSquares = cv2.inRange(hsv, lowerRed, upperRed)
 
-
-
     contains_color(blueSquares, 'b')
     contains_color(yellowSquares, 'y')
     contains_color(redSquares, 'r')
@@ -105,4 +71,4 @@ def take_picture():
 
     cap.release()
 
-# take_picture()
+get_side_from_picture()
