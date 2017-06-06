@@ -3,7 +3,7 @@ from pynq.drivers.video import HDMI
 from pynq.drivers.video import Frame
 import cv2
 import numpy as np
-Overlay("base.bit").download()
+Overlay('base.bit').download()
 
 def get_side_from_picture():
     faceColors = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
@@ -14,7 +14,7 @@ def get_side_from_picture():
     _, uncropped = cap.read()
     squareSize = int(frameWidth * frameHeight / 9)
     # img[y: y + h, x: x + w]
-    cubePicture = uncropped[240:240+frameHeight, 190:190+frameWidth]
+    cubePicture = uncropped[245:245+frameHeight, 195:195+frameWidth]
     # cubePicture = uncropped
 
     def contains_color(filteredImage, colorChar):
@@ -63,12 +63,9 @@ def get_side_from_picture():
     contains_color(greenSquares, 'g')
     contains_color(whiteSquares, 'w')
 
-    print(faceColors)
-
     %matplotlib inline
     from matplotlib import pyplot as plt
     plt.imshow(cubePicture)
 
     cap.release()
-
-get_side_from_picture()
+    return faceColors

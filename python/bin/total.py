@@ -1,77 +1,15 @@
 from pynq import Overlay
+Overlay('base.bit').download()
 from pynq.drivers.video import HDMI
 from pynq.drivers.video import Frame
+from pynq.board import Button
+from pynq.iop import Pmod_OLED
+from pynq.iop import PMODA
 import cv2
 import numpy as np
-Overlay("base.bit").download()
-
-def contains_color(filteredImage, colorChar):
-    for y in range(3):
-        for x in range(3):
-            total = 0.0
-            for i in range(y*int(frameHeight/3), (y+1)*int(frameHeight/3)):
-                for j in range(x*int(frameWidth/3), (x+1)*int(frameWidth/3)):
-                    total += filteredImage.item(i,j)
-            if total/squareSize > 50:
-                faceColors[y][x] = colorChar
-
-def take_picture():
-    cap = cv2.VideoCapture(0)
-    _, uncropped = cap.read()
-    frameWidth = 140
-    frameHeight = 150
-    squareSize = int(frameWidth * frameHeight / 9)
-    # img[y: y + h, x: x + w]
-    cubePicture = uncropped[240:240+frameHeight+1, 120:120+frameWidth+1]
-    # cubePicture = uncropped
-
-    hsv = cv2.cvtColor(cubePicture, cv2.COLOR_BGR2HSV)
-
-    faceColors = [['0','0','0'],['0','0','0'],['0','0','0']]
-
-    lowerBlue = np.array([110,100,50])
-    upperBlue = np.array([130,255,255])
-    blueSquares = cv2.inRange(hsv, lowerBlue, upperBlue)
-
-    lowerYellow = np.array([20,100,100])
-    upperYellow = np.array([40,255,255])
-    yellowSquares = cv2.inRange(hsv, lowerYellow, upperYellow)
-
-    lowerOrange = np.array([10,0,0])
-    upperOrange = np.array([20,255,255])
-    orangeSquares = cv2.inRange(hsv, lowerOrange, upperOrange)
-
-    lowerGreen = np.array([50,100,100])
-    upperGreen = np.array([70,255,255])
-    greenSquares = cv2.inRange(hsv, lowerGreen, upperGreen)
-
-    lowerWhite = np.array([0,0,100])
-    upperWhite = np.array([255,100,255])
-    whiteSquares = cv2.inRange(hsv, lowerWhite, upperWhite)
-
-    lowerRed = np.array([0,0,100])
-    upperRed = np.array([10,255,255])
-    redSquares = cv2.inRange(hsv, lowerRed, upperRed)
-
-
-
-    contains_color(blueSquares, 'b')
-    contains_color(yellowSquares, 'y')
-    contains_color(redSquares, 'r')
-    contains_color(orangeSquares, 'o')
-    contains_color(greenSquares, 'g')
-    contains_color(whiteSquares, 'w')
-
-    print(faceColors)
-
-    %matplotlib inline
-    from matplotlib import pyplot as plt
-    plt.imshow(cubePicture)
-
-    cap.release()
-
-# take_picture()
-# take_picture.py
+import time
+pmod_oled = Pmod_OLED(PMODA)
+pmod_oled.clear()
 
 def print_cube(cube):
     print("        " + cube["top"][0] + " " + cube["top"][1] + " " + cube["top"][2])
@@ -102,7 +40,134 @@ def print_cube(cube):
     print("        " + cube["bottom"][6] + " " + cube["bottom"][7] + " " + cube["bottom"][8])
     print()
 
-#test.py
+
+def get_side_from_picture():
+    faceColors = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+    faceColorAmounts = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    frameWidth = 190
+    frameHeight = 190
+    cap = cv2.VideoCapture(0)
+    _, uncropped = cap.read()
+    squareSize = int(frameWidth * frameHeight / 9)
+    # img[y: y + h, x: x + w]
+    cubePicture = uncropped[245:245+frameHeight, 195:195+frameWidth]
+    # cubePicture = uncropped
+
+    def contains_color(filteredImage, colorChar):
+        for y in range(3):
+            for x in range(3):
+                total = 0.0
+                for i in range(y * int(frameHeight / 3),
+                        (y + 1) * int(frameHeight / 3)):
+                    for j in range(x * int(frameWidth / 3),
+                            (x + 1) * int(frameWidth / 3)):
+                        total += filteredImage.item(i,j)
+                if total/squareSize > faceColorAmounts[y * 3 + x]:
+                    faceColors[y * 3 + x] = colorChar
+                    faceColorAmounts[y * 3 + x] = total/squareSize
+
+    hsv = cv2.cvtColor(cubePicture, cv2.COLOR_BGR2HSV)
+
+    lowerBlue = np.array([110,100,50])
+    upperBlue = np.array([130,255,255])
+    blueSquares = cv2.inRange(hsv, lowerBlue, upperBlue)
+
+    lowerYellow = np.array([20,100,100])
+    upperYellow = np.array([40,255,255])
+    yellowSquares = cv2.inRange(hsv, lowerYellow, upperYellow)
+
+    lowerOrange = np.array([10,0,0])
+    upperOrange = np.array([20,255,255])
+    orangeSquares = cv2.inRange(hsv, lowerOrange, upperOrange)
+
+    lowerGreen = np.array([50,100,100])
+    upperGreen = np.array([70,255,255])
+    greenSquares = cv2.inRange(hsv, lowerGreen, upperGreen)
+
+    lowerWhite = np.array([0,0,100])
+    upperWhite = np.array([255,100,255])
+    whiteSquares = cv2.inRange(hsv, lowerWhite, upperWhite)
+
+    lowerRed = np.array([0,0,100])
+    upperRed = np.array([10,255,255])
+    redSquares = cv2.inRange(hsv, lowerRed, upperRed)
+
+    contains_color(blueSquares, 'b')
+    contains_color(yellowSquares, 'y')
+    contains_color(redSquares, 'r')
+    contains_color(orangeSquares, 'o')
+    contains_color(greenSquares, 'g')
+    contains_color(whiteSquares, 'w')
+
+    %matplotlib inline
+    from matplotlib import pyplot as plt
+    plt.imshow(cubePicture)
+
+    cap.release()
+    return faceColors
+
+def get_cube_from_pictures():
+    i = 0
+    j = False
+    cube = {}
+
+    def print_to_pmod_get_sides(i):
+        pmod_oled.clear()
+        remaining = 'Sides Remaining:' + str(6 - i)
+        if i == 0:
+            pmod_oled.write('Show Front,\n' + remaining)
+        elif i == 1:
+            pmod_oled.write('Show Top,\n' + remaining)
+        elif i == 2:
+            pmod_oled.write('Show Back,\n' + remaining)
+        elif i == 3:
+            pmod_oled.write('Show Bottom,\n' + remaining)
+        elif i == 4:
+            pmod_oled.write('Show Left,\n' + remaining)
+        elif i == 5:
+            pmod_oled.write('Show Right,\n' + remaining)
+
+    print_to_pmod_get_sides(i)
+
+    def draw_to_cube(i, listFromPic):
+        print(listFromPic)
+        order = ['front', 'top', 'back', 'bottom', 'left', 'right']
+        cube[order[i]] = listFromPic
+        pmod_oled.clear()
+        pmod_oled.write(
+            listFromPic[0] + listFromPic[1] + listFromPic[2] + ' 0 if good\n' +
+            listFromPic[3] + listFromPic[4] + listFromPic[5] + ' 1 if bad\n' +
+            listFromPic[6] + listFromPic[7] + listFromPic[8])
+
+
+    def process_input(i):
+        pmod_oled.clear()
+        pmod_oled.write('Taking Picture, please wait')
+        draw_to_cube(i, get_side_from_picture())
+
+
+    while i < 6:
+        if Button(0).read():
+            if j == True:
+                print('called')
+                i += 1
+                print_to_pmod_get_sides(i)
+                j = False
+                time.sleep(1)
+            else:
+                print('other')
+                process_input(i)
+                j = True
+        elif Button(1).read():
+            if j == True:
+                print_to_pmod_get_sides(i)
+                j = False
+                time.sleep(1)
+
+    print_cube(cube)
+    pmod_oled.clear()
+    pmod_oled.write('Calculating\nSolution...')
+    return cube
 
 def rotate_side_counter_clockwise(side):
     temp = side[:]
@@ -291,10 +356,44 @@ def rotate_cube_clockwise(cube, solution, amount = 1):
         rotate_back(cube, 3)
         rotate_front(cube)
         rotate_middle(cube)
-        # solution.extend('C')
-        solution.extend('BBBFM')
+        solution.extend('C')
+        # solution.extend('BBBFM')
 
-# rotate_cube.py
+def print_to_pmod_solution(solution):
+    def convert_solution_index_to_pmod_output(move):
+        if move == 'L':
+            return 'Left'
+        elif move == 'R':
+            return 'Right'
+        elif move == 'U':
+            return 'Up'
+        elif move == 'D':
+            return 'Down'
+        elif move == 'F':
+            return 'Front'
+        elif move == 'B':
+            return 'Back'
+        elif move == "L'":
+            return 'Left Inverted'
+        elif move == "R'":
+            return 'Right Inverted'
+        elif move == "U'":
+            return 'Up Inverted'
+        elif move == "D'":
+            return 'Down Inverted'
+        elif move == "F'":
+            return 'Front Inverted'
+        elif move == "B'":
+            return 'Back Inverted'
+
+    for i in range(len(solution)):
+        pmod_oled.clear()
+        pmod_oled.write(convert_solution_index_to_pmod_output(solution[i]))
+        while True:
+            if Button(0).read():
+                break
+    pmod_oled.clear()
+    pmod_oled.write('Congratulations!  Your cube is solved')
 
 def check_front(cube, solution):
     if (cube["front"][1] == cube["front"][4] and
@@ -378,7 +477,6 @@ def top_determine_one(cube, solution):
      }
      if cube["top"][1] == cube["front"][4]:
          if cube["back"][1] == cube["top"][4]:
-            print("this is called")
             rotate_up(cube, 3, solution)
             rotate_left(cube, 1, solution)
             rotate_front(cube, 1, solution)
@@ -524,15 +622,8 @@ def complete_first_layer(cube, solution):
         check_bottom_right_corner_front(cube, solution)
         check_bottom_right_corner_back(cube, solution)
         rotate_cube_clockwise(cube, solution)
-# if all(x >= 2 for x in (A, B, C, D)):
-#     print A, B, C, D
-
-# complete_first_layer.py
 
 def second_layer_algorithm_left(cube, solution):
-    print("left")
-    # U'  L'  U L U F U'  F'
-    # BBB LLL B L B U BBB UUU
     rotate_back(cube, 3, solution)
     rotate_left(cube, 3, solution)
     rotate_back(cube, 1, solution)
@@ -543,9 +634,6 @@ def second_layer_algorithm_left(cube, solution):
     rotate_up(cube, 3, solution)
 
 def second_layer_algorithm_right(cube, solution):
-    print("right")
-    # U R U'  R'  U'  F'  U F
-    # B R BBB RRR BBB UUU B U
     rotate_back(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 3, solution)
@@ -557,45 +645,47 @@ def second_layer_algorithm_right(cube, solution):
 
 
 def check_top_one_back_one(cube, solution):
-    if (cube["back"][1] != cube["back"][4]):
-        if cube["top"][1] == cube["top"][4]:
-            if cube["back"][1] == cube["right"][4]:
-                second_layer_algorithm_right(cube, solution)
-            elif cube["back"][1] == cube["left"][4]:
-                second_layer_algorithm_left(cube, solution)
-        elif cube["top"][1] == cube["left"][4]:
-            rotate_cube_clockwise(cube, solution)
-        elif cube["top"][1] == cube["bottom"][4]:
-            rotate_cube_clockwise(cube, solution)
-            rotate_cube_clockwise(cube, solution)
-        elif cube["top"][1] == cube["right"][4]:
-            rotate_cube_clockwise(cube, solution)
-            rotate_cube_clockwise(cube, solution)
-            rotate_cube_clockwise(cube, solution)
-    if (cube["left"][3] == cube["left"][4] and
-            cube["back"][5] != cube["back"][4]):
-        rotate_cube_clockwise(cube, solution)
-    elif (cube["bottom"][7] == cube["bottom"][4] and
-            cube["back"][7] != cube["back"][4]):
-        rotate_cube_clockwise(cube, solution)
-        rotate_cube_clockwise(cube, solution)
-    elif (cube["right"][5] == cube["right"][4] and
-            cube["back"][3] != cube["back"][4]):
-        rotate_cube_clockwise(cube, solution)
-        rotate_cube_clockwise(cube, solution)
-        rotate_cube_clockwise(cube, solution)
-    else:
-        if (cube["top"][5] == cube["right"][4] and
-                cube["right"][1] == cube["top"][4]):
-            second_layer_algorithm_right(cube, solution)
-            rotate_back(cube, 2, solution)
-            second_layer_algorithm_right(cube, solution)
-        elif (cube["top"][3] == cube["left"][4] and
-                cube["left"][1] == cube["top"][4]):
+    rotate = True
+    sides = ["left", "bottom", "right"]
+    if (cube["top"][1] == cube["top"][4] and
+            cube["back"][1] == cube["left"][4]):
+        second_layer_algorithm_left(cube, solution)
+    elif (cube["top"][1] == cube["top"][4] and
+            cube["back"][1] == cube["right"][4]):
+        second_layer_algorithm_right(cube, solution)
+    elif (cube["top"][3] == cube["left"][4] and
+            cube["left"][1] == cube["top"][4]):
+        second_layer_algorithm_left(cube, solution)
+        rotate_back(cube, 2, solution)
+        second_layer_algorithm_left(cube, solution)
+    elif (cube["top"][5] == cube["right"][4] and
+            cube["right"][1] == cube["top"][4]):
+        second_layer_algorithm_right(cube, solution)
+        rotate_back(cube, 2, solution)
+        second_layer_algorithm_right(cube, solution)
+    elif ((cube["top"][1] == cube["back"][4] or
+            cube["back"][1] == cube["back"][4]) and
+            (cube["left"][3] == cube["back"][4] or
+            cube["back"][5] == cube["back"][4]) and
+            (cube["bottom"][7] == cube["back"][4] or
+            cube["back"][7] == cube["back"][4]) and
+            (cube["right"][5] == cube["back"][4] or
+            cube["back"][3] == cube["back"][4])):
+        if cube["top"][3] != cube["top"][4]:
             second_layer_algorithm_left(cube, solution)
-            rotate_back(cube, 2, solution)
-            second_layer_algorithm_left(cube, solution)
+        elif cube["top"][5] != cube["top"][4]:
+            second_layer_algorithm_right(cube, solution)
         else:
+            rotate_cube_clockwise(cube, solution)
+    else:
+        for i in range(3):
+            if (cube["top"][1] == cube[sides[i]][4] and
+                    cube["back"][1] != cube["back"][4]):
+                rotate = False
+                rotate_back(cube, i + 1, solution)
+                rotate_cube_clockwise(cube, solution, i + 1)
+                top_determine_one(cube, solution)
+        if rotate == True:
             rotate_cube_clockwise(cube, solution)
 
 def complete_second_layer(cube, solution):
@@ -609,11 +699,7 @@ def complete_second_layer(cube, solution):
             cube["bottom"][5] != cube["bottom"][4]):
         check_top_one_back_one(cube, solution)
 
-# complete_second_layer.py
-
 def third_layer_algorithm_cross(cube, solution):
-    # F R U R'  U'  F'
-    # U R B RRR BBB UUU
     rotate_up(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 1, solution)
@@ -622,24 +708,33 @@ def third_layer_algorithm_cross(cube, solution):
     rotate_up(cube, 3, solution)
 
 def complete_back_cross(cube, solution):
-    if cube["back"][1] != cube["back"][4]:
+    amountOfBack = 0
+    for i in range(4):
+        if cube["back"][i * 2 + 1] == cube["back"][4]:
+            amountOfBack += 1
+    if amountOfBack == 4:
+        return
+    elif amountOfBack == 0:
         third_layer_algorithm_cross(cube, solution)
-        while (cube["back"][5] != cube["back"][4] or
-                cube["back"][7] != cube["back"][4]):
-            rotate_cube_clockwise(cube, solution)
+    if (cube["back"][1] == cube["back"][4] and
+            cube["back"][7] == cube["back"][4] and
+            cube["back"][5] != cube["back"][4] and
+            cube["back"][3] != cube["back"][4]):
+        rotate_back(cube, 1, solution)
+    if (cube["back"][3] == cube["back"][4] and
+            cube["back"][5] == cube["back"][4] and
+            cube["back"][1] != cube["back"][4] and
+            cube["back"][7] != cube["back"][4]):
         third_layer_algorithm_cross(cube, solution)
-        third_layer_algorithm_cross(cube, solution)
-    elif cube["back"][7] != cube["back"][4]:
-        third_layer_algorithm_cross(cube, solution)
-        third_layer_algorithm_cross(cube, solution)
-    elif (cube["back"][3] != cube["back"][4] or
-            cube["back"][5] != cube["back"][4]):
-        third_layer_algorithm_cross(cube, solution)
+        return
 
+    while (cube["back"][5] != cube["back"][4] or
+            cube["back"][7] != cube["back"][4]):
+        rotate_cube_clockwise(cube, solution)
+    third_layer_algorithm_cross(cube, solution)
+    third_layer_algorithm_cross(cube, solution)
 
 def third_layer_algorithm_swap_edges(cube, solution):
-    # R U R'  U R U2 R'  U
-    # R B RRR B R BB RRR B
     rotate_right(cube, 1, solution)
     rotate_back(cube, 1, solution)
     rotate_right(cube, 3, solution)
@@ -659,33 +754,21 @@ def check_back_edges_to_sides(cube, solution):
         return False;
 
 def match_back_edges_to_sides(cube, solution):
-    sideOrder = {
-        'o': 'b',
-        'b': 'r',
-        'r': 'g',
-        'g': 'o'
-    }
-    realOrder = [
-        cube["top"][1],
-        cube["right"][5],
-        cube["bottom"][7],
-        cube["left"][3],
-        cube["top"][1]
-    ]
     while (check_back_edges_to_sides(cube, solution)):
-        for i in range(4):
-            if sideOrder[realOrder[i]] == realOrder[i + 1]:
-                while cube["top"][4] != realOrder[i + 1]:
-                    rotate_cube_clockwise(cube, solution)
-                while cube["bottom"][7] != cube["bottom"][4]:
-                    rotate_back(cube, 1, solution)
-                break
-        if(check_back_edges_to_sides(cube, solution)):
+        if cube["top"][1] == cube["top"][4]:
+            rotate_cube_clockwise(cube, solution)
+        elif (cube["top"][1] == cube["left"][4] and
+                cube["left"][3] == cube["top"][4]):
             third_layer_algorithm_swap_edges(cube, solution)
+        elif (cube["top"][1] == cube["bottom"][4] and
+                cube["bottom"][7] == cube["top"][4]):
+            third_layer_algorithm_swap_edges(cube, solution)
+            rotate_cube_clockwise(cube, solution)
+            rotate_cube_clockwise(cube, solution)
+        else:
+            rotate_back(cube, 1, solution)
 
 def third_layer_algorithm_position_corners(cube, solution):
-    # U R U'  L'  U R'  U'  L
-    # B R BBB LLL B RRR BBB L
     rotate_back(cube, 1, solution)
     rotate_right(cube, 1, solution)
     rotate_back(cube, 3, solution)
@@ -780,8 +863,6 @@ def position_back_corners_to_sides(cube, solution):
             third_layer_algorithm_position_corners(cube, solution)
 
 def third_layer_final_algorithm(cube, solution):
-    # R'  D'  R D
-    # RRR FFF R F
     rotate_right(cube, 3, solution)
     rotate_front(cube, 3, solution)
     rotate_right(cube, 1, solution)
@@ -789,10 +870,9 @@ def third_layer_final_algorithm(cube, solution):
 
 def finish_third_layer(cube, solution):
     for i in range(4):
-        while (cube["top"][2] != cube["top"][1] and
+        while (cube["top"][2] != cube["top"][1] or
                 cube["right"][2] != cube["right"][5]):
             third_layer_final_algorithm(cube, solution)
-            print(i)
         rotate_back(cube, 1, solution)
 
 def complete_third_layer(cube, solution):
@@ -801,22 +881,19 @@ def complete_third_layer(cube, solution):
     position_back_corners_to_sides(cube, solution)
     finish_third_layer(cube, solution)
 
-# complete_third_layer.py
+def main():
+    print('starting')
+    cube = get_cube_from_pictures()
+    solution  = []
+    make_cross(cube, solution)
+    print_cube(cube)
+    complete_first_layer(cube, solution)
+    print_cube(cube)
+    complete_second_layer(cube, solution)
+    print_cube(cube)
+    complete_third_layer(cube, solution)
+    print_to_pmod(solution)
+    print_cube(cube)
+    print(solution)
 
-
-# def main():
-#     cube = get_cube_from_pictures()
-#     solution  = []
-#     make_cross(cube, solution)
-#     print_cube(cube)
-#     complete_first_layer(cube, solution)
-#     print_cube(cube)
-#     complete_second_layer(cube, solution)
-#     print_cube(cube)
-#     complete_third_layer(cube, solution)
-#     print_cube(cube)
-#     print(solution)
-#
-# main()
-
-# main.py
+main()

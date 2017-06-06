@@ -225,16 +225,3 @@ def complete_first_layer(cube, solution):
         check_bottom_right_corner_front(cube, solution)
         check_bottom_right_corner_back(cube, solution)
         rotate_cube_clockwise(cube, solution)
-# if all(x >= 2 for x in (A, B, C, D)):
-#     print A, B, C, D
-
-def main():
-    cube = get_cube_from_pictures()
-    solution  = []
-    make_cross(cube, solution)
-    print_cube(cube)
-    complete_first_layer(cube, solution)
-    print_cube(cube)
-    print(solution)
-
-main()
