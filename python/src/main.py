@@ -1,37 +1,5 @@
 def main():
-    # cube = get_cube_from_pictures()
-    cube = {
-        "top": [
-            'b', 'y', 'w',
-            'y', 'o', 'y',
-            'w', 'g', 'y',
-        ],
-        "left": [
-            'o', 'r', 'r',
-            'g', 'g', 'y',
-            'w', 'o', 'o',
-        ],
-        "front": [
-            'b', 'r', 'r',
-            'o', 'w', 'r',
-            'g', 'w', 'o',
-        ],
-        "right": [
-            'g', 'b', 'o',
-            'b', 'b', 'w',
-            'b', 'b', 'b',
-        ],
-        "back": [
-            'g', 'g', 'y',
-            'g', 'y', 'o',
-            'y', 'b', 'g',
-        ],
-        "bottom": [
-            'y', 'r', 'w',
-            'w', 'r', 'w',
-            'r', 'o', 'r',
-        ]
-    }
+    cube = get_cube_from_pictures()
     solution = []
     print_cube(cube)
     make_cross(cube, solution)

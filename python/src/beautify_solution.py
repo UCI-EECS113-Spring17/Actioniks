@@ -53,12 +53,11 @@ def beautify(solution):
 
     def double_up(solution):
         for j in range(len(solution) - 1):
-            temp = solution[j]
             if j + 2 > len(solution):
                 break
-            elif (solution[j + 1] == temp):
-                del solution[j+1]
-                solution[j] = temp + " Twice"
+            elif (solution[j + 1] == solution[j]):
+                solution.pop(j)
+                solution[j] += " Twice"
 
     remove_four_in_a_row(solution)
     reverse_three_in_a_row(solution)
