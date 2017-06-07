@@ -25,10 +25,6 @@ Once the board is done calculating the solution (it should only take a second or
 
  
 ### Pmod Instructions in Visual Form
-<img src="http://williamscotten.com/Actioniks/assets/img/front.jpg" width="200">
-<img src="http://williamscotten.com/Actioniks/assets/img/back.jpg" width="200">
-<img src="http://williamscotten.com/Actioniks/assets/img/down.jpg" width="200">
+<img src="http://williamscotten.com/Actioniks/assets/img/front.jpg" width="200"><img src="http://williamscotten.com/Actioniks/assets/img/back.jpg" width="200"><img src="http://williamscotten.com/Actioniks/assets/img/down.jpg" width="200">
 
-<img src="http://williamscotten.com/Actioniks/assets/img/left.jpg" width="200">
-<img src="http://williamscotten.com/Actioniks/assets/img/right.jpg" width="200">
-<img src="http://williamscotten.com/Actioniks/assets/img/up.jpg" width="200">
+<img src="http://williamscotten.com/Actioniks/assets/img/left.jpg" width="200"><img src="http://williamscotten.com/Actioniks/assets/img/right.jpg" width="200"><img src="http://williamscotten.com/Actioniks/assets/img/up.jpg" width="200">
